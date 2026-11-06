@@ -240,6 +240,12 @@ def main():
     hop = pc["preprocessing"]["stft"]["hop_length"]
 
     if LANG == "English":
+        import nltk
+        for _r in ('averaged_perceptron_tagger_eng', 'averaged_perceptron_tagger', 'cmudict'):
+            try:
+                nltk.download(_r, quiet=True)
+            except Exception as _e:
+                print('nltk download failed for', _r, _e)
         from g2p_en import G2p
         lex, g2p = load_lexicon(), G2p()
         front = lambda t: en_tokens(t, lex, g2p)
